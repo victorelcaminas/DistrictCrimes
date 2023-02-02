@@ -11,7 +11,6 @@ public class DistrictCrimes {
         String outputFilename = "CrimesDistrict" + district + ".txt";
         List<String> list = readCSV(district, filename);
         Collections.sort(list);
-        System.out.println(list);
         writeListToFile(list, outputFilename);
     }
 
