@@ -1,6 +1,8 @@
+import java.io.Serializable;
 import java.util.*;
 
-public class Pair <K extends Comparable<K>, V> implements Comparable<Pair<K, V>> {
+public class Pair <K extends Comparable<K>, V>
+        implements Comparable<Pair<K, V>>, Serializable {
     private K key;
     private V value;
 

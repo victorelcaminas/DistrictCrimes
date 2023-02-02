@@ -6,6 +6,30 @@ public class CrimeFreq {
         Map<String, Integer> map = readCSV();
         System.out.println(map);
         writeObjects(map);
+        readObjects();
+    }
+
+    private static void readObjects() throws IOException {
+        ObjectInputStream input = null;
+        try {
+            input = new ObjectInputStream(
+                    new BufferedInputStream(
+                            new FileInputStream("CrimeFreq.dat")));
+            while (true) {
+                Pair<String, Integer> pair = (Pair<String, Integer>) input.readObject();
+                System.out.println(pair);
+            }
+        } catch (EOFException ex) {
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            System.exit(1);
+        } finally {
+            if (input != null) {
+                input.close();
+            }
+        }
+
     }
 
     private static void writeObjects(Map<String, Integer> map) throws IOException {
@@ -15,7 +39,11 @@ public class CrimeFreq {
                     new BufferedOutputStream(
                             new FileOutputStream("CrimeFreq.dat")));
 
-            
+            for (String key : map.keySet()) {
+                Integer value = map.get(key);
+                Pair<String, Integer> pair = new Pair<>(key, value);
+                out.writeObject(pair);
+            }
         } finally {
             if (out != null) {
                 out.close();
